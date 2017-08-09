@@ -3,6 +3,8 @@ import assert from 'assert';
 
 import { objectToGetParams } from './utils';
 
+const FACEBOOK_APP_ID = 211165382750698;
+
 export function email(subject, body) {
   assert(subject, 'email.subject');
   assert(body, 'email.body');
@@ -40,10 +42,12 @@ export function whatsapp(url, { title, separator }) {
 export function facebook(url, { title, description, picture, hashtag }) {
   assert(url, 'facebook.url');
 
-  return 'https://www.facebook.com/sharer/sharer.php' + objectToGetParams({
-    u: url,
-    title,
+  return 'https://www.facebook.com/dialog/feed' + objectToGetParams({
+    app_id: FACEBOOK_APP_ID,
+    display: 'popup',
+    name: title,
     description,
+    link: url,
     picture,
     hashtag,
   });
